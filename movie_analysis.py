@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# # Movie Analaysis 
+# # IMDB Movie Analaysis 
 # 
 # This is a dataset of the movies and their budget,revenue,gender,rating and reviwes from the imdb. From the given dataset i would like to ask some questions, so that it would be helpful in connecting people with their type of movie, so that the movie business can be imporved.
 # 
@@ -16,7 +16,7 @@
 # * Which heros has made the most contribution in movies in terms of revenue?
 # * Which director has made the most contribution in movies in terms of revenue?
 
-# In[88]:
+# In[81]:
 
 
 import pandas as pd 
@@ -31,27 +31,27 @@ movies.head(2)
 
 # # Assessing & Cleaning the Data
 
-# In[89]:
+# In[82]:
 
 
 movies.shape
 
 
-# In[90]:
+# In[83]:
 
 
 movies.info()
 
 
-# In[91]:
+# In[84]:
 
 
 #Removing the column which are not required for analysis
-movies.drop(['tagline','keywords','overview','budget_adj','revenue_adj'],axis=1, inplace=True) 
+movies.drop(['tagline','keywords','overview','budget_adj','revenue_adj','Unnamed: 21','Unnamed: 22','Unnamed: 23','Unnamed: 24'],axis=1, inplace=True) 
 movies.head(2)
 
 
-# In[92]:
+# In[85]:
 
 
 #converting the column with interger or float from string object datatype to float
@@ -62,7 +62,7 @@ movies.budget = movies.budget.astype(float)
 movies.revenue = movies.revenue.astype(float)
 
 
-# In[93]:
+# In[86]:
 
 
 #creating gener and lead_role column for analysis & replaceing the genres string values seperated with comma.
@@ -72,14 +72,14 @@ movies['genres'] = movies['genres'].str.replace('|',',')
 movies.head(2)
 
 
-# In[94]:
+# In[87]:
 
 
 #To remove the duplicates
 movies.drop_duplicates(inplace=True)
 
 
-# In[95]:
+# In[88]:
 
 
 #convert all the budget and revenue amount in Billion Dollar Amount
@@ -88,14 +88,14 @@ movies.revenue = movies.revenue/1000000000
 movies.head(4)
 
 
-# In[96]:
+# In[89]:
 
 
 #Renaming the buget and revenue column in billions
 movies = movies.rename(columns={'budget':'budget_in_billion','revenue':'revenue_in_billion'})
 
 
-# In[97]:
+# In[90]:
 
 
 #filtering the release_year and genre to required length for better analysis
@@ -107,7 +107,7 @@ movies.release_year = movies.release_year.astype(int)
 
 # # Explorations Phase
 
-# In[98]:
+# In[91]:
 
 
 #Release years and count from the data
@@ -115,7 +115,7 @@ print("Total Number of Release Years:", movies.release_year.nunique())
 print("Release Years:", movies.release_year.unique())
 
 
-# In[99]:
+# In[92]:
 
 
 # Basic analysis from the Data
@@ -125,23 +125,31 @@ print ("Different Geners:",movies['genre'].unique())
 print ("Total number of directors:",movies['director'].nunique())
 
 
-# In[100]:
+# In[93]:
 
 
 #to display the statistical values of all numerical data's
 movies.describe()
 
 
-# In[101]:
+# ## **Highest and lowerst Number of movies released in which year ?** <br>
+# In this analysis i have used the "Release_year" variable to identify the number of movies released each year, So from the Bar graph analysis it has been clear that most number of movies released on the year **2014** and the least number of movies was released on **1961**.
+# 
+
+# In[94]:
 
 
 #Number of release in each year
 plt.figure(figsize=(25,20))
 sns.countplot(x='release_year',data=movies)
+plt.title("Number of Movies each Year")
 plt.show()
 
 
-# In[38]:
+# ## **Which Genre Movie Has The Highest voting Average ?**  <br>
+# In this analysis i have used the *genre* and *vote_average* variables to determine which movie genre gets the highest voting average, and from the visualization it is clear that **Documentary** genre has the higest number of voting average followed by Music, Animation and Foregin movies.
+
+# In[95]:
 
 
 #comparision graph between the genre & vote_average
@@ -150,7 +158,10 @@ sns.barplot(x='genre',y='vote_average',data = movies)
 plt.show()
 
 
-# In[39]:
+# ## Which genre movies has the highest popularity amoung people? <br>
+# In this analysis i have used the genre and the popularity variable to determine the type of genre liked mostly by people, and from the visualization it is clear that **Adventure** movies has the highest populartiy with the rating of 12 which is followed by the science fiction moives with 11 rating and rest all fall's below 10.
+
+# In[96]:
 
 
 #comparision between the genre and popularity
@@ -159,7 +170,10 @@ sns.barplot(x='genre',y='popularity',data=movies)
 plt.show()
 
 
-# In[40]:
+# ## Which Movie Genre Has The Highest Investment? <br>
+# In this visualization i have used the *genre* and *budget_in_billion* variables for analysing the movie gener has given the higest investment all time. From the bar plot it is very clear that higest investment buget is for the **Adventure** Films.
+
+# In[97]:
 
 
 #comparision between different genres and their budget
@@ -168,7 +182,10 @@ sns.barplot(x='genre',y='budget_in_billion',data=movies)
 plt.show()
 
 
-# In[41]:
+# ## Which Movie Genre has yield the Highest Revenue ? <br>
+# In this visualization *genre* and *revenue_in_billion* variables are used for analysing the type of genre yields the highest revenue and from the analysis it is very Transparent that **Adventure** Moives get's the higest revenue in averge with 120 Million Doller.
+
+# In[98]:
 
 
 #comparision between the different genres and their revenue
@@ -177,7 +194,11 @@ sns.barplot(x='genre',y='revenue_in_billion',data=movies)
 plt.show()
 
 
-# In[42]:
+# ## Does the popularity of the movies depends on the runtime of the movie? <br>
+# For this analysis i have used the *runtime* and *popularity* variable to analyse whether the runtime of the movie affects the popularity of the movie and from the analysis it is very clear that the run time of the movie do affect the popularity and from the scatter plot it has a negetive correlation and movies with higest popularity has a runtime between **120 to 150 minutes** of runtime.
+# 
+
+# In[99]:
 
 
 #scatter polt to analyse whether the popularity based on the movie runtime 
@@ -186,7 +207,11 @@ sns.lmplot(x='runtime',y='popularity',data= movies,fit_reg = True)
 plt.show();
 
 
-# In[43]:
+# ## Does the movie with higher budget yields high revenue? <br>
+# For this analysis the budget and the revenue variable have been used to analyse whether moives with the higher revenue depends on the budget of the movie. So, the scatter polt gives a negative correlation and yes the revenue of the movie mostly depends on the budget of the movie, but not always because there are some outliers in the plot where higher buget movie has yield less revenue but as it is a outlier we dont need to take much in to consideration, so the revenue of the movie depends on the budget of the movie.
+# 
+
+# In[100]:
 
 
 #scatter plot to analyse whether revenue of a movie based on the budget  
@@ -195,21 +220,21 @@ sns.lmplot(x='budget_in_billion',y='revenue_in_billion',data= movies,fit_reg=Tru
 plt.show();
 
 
-# In[44]:
+# In[101]:
 
 
 #Dataframe on the mean popularity for each genre from highest to lowest
 movies.groupby('genre',as_index=False)['popularity'].mean().sort_values('popularity',ascending = False)
 
 
-# In[45]:
+# In[102]:
 
 
 #DataFrame on the mean voting avergare for each genre from highest to the lowest
 movies.groupby('genre',as_index=False)['vote_average'].mean().sort_values('vote_average',ascending = False)
 
 
-# In[46]:
+# In[103]:
 
 
 #List of all unique Genre of movies
@@ -223,7 +248,14 @@ individual_genres = set(individual_genres)
 individual_genres
 
 
-# In[47]:
+# ## Which Gener Movies released the most ? <br>
+# For this analysis i have used the each genre type in to seperate data frame to calcuate the total numbe of movies in each genre and from that analysis it is clear that **Drama** genre movie has been released the most with 4647 movies. <br>
+# ## Which Year has Most Number of Movies Release for each Genre? <br>
+# Thriller : 2014 , TV Movies: 2015, Fantasy: 2009, Documentary: 2014, Action: 2014, Crime: 2013, Western: 1970&1994
+# Romance: 2010, War: 2014, Family: 2011, Foregin: 2013, Drama: 2014, Adventure: 2009, Horror: 2015, Comedy : 2009,
+# Animation: 2010, Music: 2015, History: 2008, Mystery: 2009, Science Fiction: 2015.
+
+# In[104]:
 
 
 #Total number of movies on each genre
@@ -239,10 +271,12 @@ for genre in individual_genres:
     print(genre, len(movies[seperate_genre]))
 
 
-# In[48]:
+# ### **Calcuated the Percentage of movies released in each genre ** 
+
+# In[105]:
 
 
-# Percentage of movies released on each genre 
+# calcuating Percentage of movies released on each genre
 genre_percent = np.zeros(len(individual_genres))
 i =0
 for genre in individual_genres:
@@ -253,7 +287,7 @@ for genre in individual_genres:
     print (genre, percent)
 
 
-# In[49]:
+# In[106]:
 
 
 #DataFrame for clear visualization and to make Analysis on them
@@ -262,7 +296,11 @@ genre_df['percentage'] = genre_df['percentage'].round(2)
 genre_df 
 
 
-# In[50]:
+# ## Top five Genre of movies contribution <br>
+# Here for this analysis i have calcuated the movies contribution percentage on each genre from the previous cell and from that i have plotted the top 5 genres contribution in a pie chart for a better visualiation in percentage among the top 5 and from that the most contribution of movies is by the **Drama** and **Comedy** where they differ only by 5.7 percent.
+# 
+
+# In[107]:
 
 
 #Pie chart analysis on the top 5 genres based on the total number of movies
@@ -273,7 +311,9 @@ plt.ylabel('')
 plt.title('Percent of Total Movies Made from Top 5 Genres', weight='bold', fontsize=16)
 
 
-# In[51]:
+# ### **Calcuated the Revenue obtained by each Genre of movie in percentage ** 
+
+# In[108]:
 
 
 #Total Revenue obtained by each genre
@@ -287,7 +327,7 @@ for genre in individual_genres:
     print (genre,revenue_percent)
 
 
-# In[52]:
+# In[109]:
 
 
 #Same as before made a DataFrame for clear visualization and to make Analysis on them
@@ -295,7 +335,10 @@ genre_revenue_df = pd.DataFrame(genre_revenue_percent, index = individual_genres
 genre_revenue_df 
 
 
-# In[53]:
+# ## Total Percentage Revenue Obtained by Top 5 Genres <br>
+# I have calcuated the percentage of Revenue obtained by individual genres in the previous cell and from that i have plotted the pie chart for the top 5 genres for a better visualiation to compare their contribution to a extent and from that analysis Action, Adventure and Comedy are nearby each other in their contribution and amoung these Action movies yields the most revenue. 
+
+# In[110]:
 
 
 #Pie chart analysis on the top 5 genres based on the revenue
@@ -306,16 +349,17 @@ plt.ylabel('')
 plt.title('Percent of Total Revenue Made from Top 5 Genres', weight='bold', fontsize=16)
 
 
-# In[54]:
+# ### **Sorted out the top 10 Directors based on their movie count and have calculated the total revenue obtained from them.** 
+
+# In[111]:
 
 
 # Obtaining the first 10 directors based on the numbe of movies directed
 most_active_director = movies.director.value_counts().head(10)
 most_active_directors = most_active_director.index
-most_active_directors
 
 
-# In[76]:
+# In[112]:
 
 
 # Obtaining the Revenues given by these top 10 directors in Billions
@@ -329,7 +373,7 @@ for dirct in most_active_directors:
     print (dirct,director_revenue)
 
 
-# In[77]:
+# In[113]:
 
 
 #DataFrame for the clear Visualization and Analysis
@@ -337,7 +381,11 @@ dirct_revenue_df = pd.DataFrame(director_revenue_total,index = most_active_direc
 dirct_revenue_df
 
 
-# In[79]:
+# ## Top 10 Directors who has made Highest Revenue Percentage overall <br>
+# In this analysis i have calcuated the percentage of revenue contribution of individual directors in the above cell, and for a better analysis i have sorted out the top 10 directors among them and plotted a pie chart to get a better visualization, from the visualization it is very much outstanding that **Steven Spielberg** has made the higest contribution with 29.84% and followed by **Tim Burton** with 12.48%.
+# 
+
+# In[114]:
 
 
 #pie chart analysis on the directors with highest to the lowest
@@ -348,7 +396,9 @@ plt.ylabel('')
 plt.title('Revenue Contribution Made by Top 10 Directos', weight='bold', fontsize=16)
 
 
-# In[68]:
+# ### **Sorted out the top 10 Actors based on their movie count and have calculated the total revenue obtained from them.** 
+
+# In[115]:
 
 
 # creating a index of top 10 lead_role who has done most films
@@ -356,7 +406,7 @@ most_active_hero = movies['lead_role'].value_counts().sort_values(ascending=Fals
 most_active_heros = most_active_hero.index
 
 
-# In[83]:
+# In[116]:
 
 
 # calcuating the revenue made by the top the lead roles
@@ -370,7 +420,7 @@ for hero in most_active_heros:
     print (hero,revenue_hero)    
 
 
-# In[85]:
+# In[117]:
 
 
 # Creating DataFrame for a clear view and analysis 
@@ -378,7 +428,10 @@ hero_revenue_df = pd.DataFrame(hero_total_revenue, index = most_active_heros, co
 hero_revenue_df
 
 
-# In[87]:
+# ## Top 10 Actors who has made Highest Revenue Overall <br>
+# Calcuation for the percentage of revenue contribution of top 10 actors have been made on above cell, for a better visualization i have made a pie chart analysis of the top 10 actors from that visualization **Tom Hank** and **Johnny Depp** has made the highest revenue percentage with 22.33% and 18.44%.
+
+# In[118]:
 
 
 #pie chart analysis on the heros contribution in revenue from highest to the lowest
@@ -388,35 +441,6 @@ hero_revenue_df.sort_values(by='Revenue',ascending=False).plot.pie(legend=False,
 plt.ylabel('')
 plt.title('Revenue Contribution Made by Top 10 Hero"s', weight='bold', fontsize=16)
 
-
-# # Conclusion Phase 
-# 
-# ## Answers to the question from the analysis made in the exploration phase
-# 
-# * **Highest and lowerst Number of movies released in which year ?**
-#  - The highest number of movie was released in 2014 which was 969 movies and the lowest movies was released on 1961    with only 31 movies
-#  
-# * **Which genre movie has the Highest voting average ?**
-#  - As per the voting average the documentary films have got the highest voting average of 7 out of 10.
-#  
-# * **Which genre movies getting the Highest revenue ?**
-#  - Adventure movies always tops the order on the total revenes obtained and it's average comes up to 120 million  
-#  
-# * **Which genre movies mostly liked by the people ?**
-#  - Aventure movies are the most attracting genre for the people. 
-#  
-# * **Does the popularity of the movies depends on the runtime of the movie?**
-#  - Yes, it does depends on the runtime of the movies,movies with the duration between 150 to 200 Miuntes has the      highest popularity, Where as a movie popularity get's reduced as the duration goes high.
-#  
-# * **Does the movie with higher budget yields high revenue?**
-#  - Yes, higher the budget of the film, higher is the revenue yeild by the movie production company.
-#  
-# * **Which Hero has made the most contribution in movies in terms of revenue?**
-#  - Tom hanks and Johnny Depp has given the highest revenues with the revenue of 7.7 Billion Doller by Tom Hanks and 6.41 Doller by Johnny Depp.
-#  
-# * **Which Director has made the most contribution in movies in terms of revenue?**
-#  - Steven Spielberg	has made the higest revenue of 9.2 Billion Doller followe by Tim Burton with 3.8 Billion Doller
-# 
 
 # ## Finialized Conclusion on the Analysis
 # 
@@ -439,4 +463,14 @@ plt.title('Revenue Contribution Made by Top 10 Hero"s', weight='bold', fontsize=
 #    - Budget <br>
 #    So from the award Prespective movies mostly depends on the genres like documentary, History, Animation, Fantasy and Music because they have the higest voting average, then comes the runtime of the movie which should not drag, at last comes the budget, where awards to a movie can only from the voting rate and these voting rate solely depends on the genre of movie.
 #    
-# ###  Final communicative conclusion has been made from the analysis for the movies of different genre from the year 1961 to 2015 
+# 
+
+# # Limitations 
+# 
+# * Datasets had some missing values which was replaced it will zeros for numerical values and in some had missing values on the movie_title and genre those rows have been removed since those cannot contribute to the analysis.
+# * Dataset had some limitation on making the Exploration and Statistical analysis, where it could have been better with some more variables mentioning which **season movie was released**,  **movie promotion budget**, and now a days social handling gives more hype for a movie, so there could have been **number of social media post and handling for a moive** 
+#  - These variables could have given more insights on the data to come with a prediction of answering better for the questions based on,
+#   - popularity
+#   - Revenue
+#   - Rating
+# * Final, limitation which i could say is, this is a single dataset which gives movies rating and votings from the IMDB movies alone, so this is constrained only from the IMDB user's review and rating but not the entire people who watched the film, so these analysis can predict only to an extend but not entirely. 
