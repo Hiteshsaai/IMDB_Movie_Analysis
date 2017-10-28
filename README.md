@@ -26,7 +26,7 @@ and have mention the limitations fromt the datasets has also been mentioned.
  
 # Installation 
 ---------------------------
-# For Linux
+### For Linux
 Python Installation 
 
 ```
@@ -40,5 +40,7 @@ $ sudo add-apt-repository ppa:fkrull/deadsnakes
 $ sudo apt-get update
 $ sudo apt-get install python3.6
 ```
+# Contributing
 
+Please read [CONTRIBUTING.md](https://github.com/Hiteshsaai/IMDB_Movie_Analysis/blob/master/CONTRIBUTION.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
