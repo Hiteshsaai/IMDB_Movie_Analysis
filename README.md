@@ -43,3 +43,8 @@ $ sudo apt-get install python3.6
 # Contributing
 
 Please read [CONTRIBUTING.md](https://github.com/Hiteshsaai/IMDB_Movie_Analysis/blob/master/CONTRIBUTION.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+# LICENSE
+
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/Hiteshsaai/IMDB_Movie_Analysis/blob/master/LICENSE.md) file for details
+
