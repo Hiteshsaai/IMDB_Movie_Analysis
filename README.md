@@ -3,7 +3,7 @@
 ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)
 
 # IMDB_Movie_Analysis
-----------------------------
+
 This project is based on the IMDB movies Analaysis for the year 1961 till 2015
 
 # Getting Started 
