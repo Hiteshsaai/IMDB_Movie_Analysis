@@ -2,6 +2,7 @@
 ![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)
 ![PyPDF2](https://img.shields.io/badge/PyPDF-2-blue.svg)
 ![Jupyter Notebook](https://img.shields.io/badge/Jupyter-Notebook-orange.svg)
+![Anaconda Cloud](https://anaconda.org/anaconda/readme_renderer/badges/version.svg)
 ![Conda platform support](https://camo.githubusercontent.com/f2f33d8c331d33b6aa1bb5b8730d8c061d3475d3/68747470733a2f2f696d672e736869656c64732e696f2f636f6e64612f706e2f636f6e64612d666f7267652f71757469702e7376673f7374796c653d706c6173746963)
 
 # IMDB_Movie_Analysis
